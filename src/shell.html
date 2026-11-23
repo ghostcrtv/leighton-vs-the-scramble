@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Leighton vs.">
+<meta name="theme-color" content="#0b1029">
+<title>Leighton vs. The Scramble</title>
+<link rel="apple-touch-icon" href="__ICON__">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..600&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+<style>
+__CSS__
+</style>
+</head>
+<body>
+<div id="app">
+
+  <section class="screen" id="home">
+    <div class="hero">
+      <div id="heroScene"></div>
+      <div class="hero-copy">
+        <h1 class="logo"><small>Leighton vs.</small>The Scramble</h1>
+        <p>Twistwood, 1986. Someone scrambled the cube and the monsters got out. <span>Every turn you learn is a hit. Solve it to send them back.</span></p>
+        <div class="hero-actions"><button class="key light big" id="homePlay">Start learning</button><button class="key ghost big" id="homeWarm">Warm-up</button></div>
+      </div>
+      <div class="hero-lei" id="heroLei"></div><div class="hero-mons" id="heroMons"></div>
+    </div>
+    <svg id="homeFringe"></svg>
+    <div class="home-body scroll-y" id="homeStats"></div>
+  </section>
+
+  <section class="screen" id="map">
+    <div class="topbar"><button class="icon-btn icon-back" data-go="home" aria-label="Home"></button><h2>The map</h2><span class="chip-stat" id="mapStreak"></span><span class="chip-stat" id="mapXP"></span></div>
+    <div class="map-wrap scroll-y" id="mapBody"></div>
+  </section>
+
+  <section class="screen" id="lesson">
+    <div class="ls-top"><button class="icon-btn" id="lsClose" aria-label="Close lesson"></button><div class="bar" id="lsBar"></div><div class="combo" id="lsCombo"></div></div>
+    <div class="ls-main">
+      <div class="stage" id="lsStage">
+        <div class="arena" id="arena">
+          <div id="arenaScene"></div>
+          <div class="hero-sp" id="arenaHero"></div><div class="orb" id="arenaOrb"></div>
+          <div class="mon" id="arenaMon"><div class="body" id="arenaMonBody"></div></div>
+          <div class="mon-tag"><span class="nm" id="monName"></span><div class="hp"><i id="monHP"></i></div></div>
+          <div class="taunt" id="monTaunt"></div>
+          <div class="flash" id="arenaFlash"></div><div class="ko" id="arenaKO">K.O.</div>
+        </div>
+        <div class="cube-wrap">
+          <div class="cube-host" id="cubeHost"></div>
+          <button class="icon-btn view-reset" id="viewReset" aria-label="Reset view"></button>
+          <div class="toast" id="lsToast"></div>
+          <div class="hint-txt"><span id="lsTitle"></span> &middot; drag to look around</div>
+        </div>
+      </div>
+      <div class="side">
+        <div class="speaker"><div class="face" id="lsFace"></div><div class="bubble" id="lsBubble"></div></div>
+        <div class="task" id="lsTask"></div>
+        <div class="controls" id="lsControls"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="done"><div class="result" id="doneCard"></div></section>
+
+  <section class="screen" id="friends">
+    <div class="topbar"><button class="icon-btn icon-back" data-go="home" aria-label="Home"></button><h2>Monster files</h2><span class="chip-stat" id="filesCount"></span></div>
+    <div class="friends files scroll-y" id="friendsBody"></div>
+  </section>
+
+  <section class="screen" id="timer">
+    <div class="topbar"><button class="icon-btn icon-back" data-go="home" aria-label="Home"></button><h2>Speed timer</h2></div>
+    <div class="timer-wrap">
+      <div class="tpad" id="tPad">
+        <div class="scr" id="tScr"></div>
+        <div class="time" id="tTime">0.00</div>
+        <div class="tsub" id="tSub"></div>
+        <div class="splits" id="tSplits"></div>
+      </div>
+      <div class="tside">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px" id="tStats"></div>
+        <button class="toggle" id="swSplitsRow"><span>Stage splits (tap after each step)</span><span class="sw" id="swSplits"></span></button>
+        <button class="key light" id="tNew">New scramble</button>
+        <div class="tlist" id="tList"></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="modal" id="settings"><div class="sheet">
+  <h3>Settings</h3>
+  <p>Progress saves on this device.</p>
+  <button class="toggle" id="swSoundRow" style="width:100%"><span>Sound</span><span class="sw" id="swSound"></span></button>
+  <button class="toggle" id="swOpenRow" style="width:100%"><span>Open every level (preview)</span><span class="sw" id="swOpen"></span></button>
+  <div class="btn-row" style="margin-top:6px"><button class="key light" id="resetBtn">Reset all progress</button><button class="key dark" id="closeSettings">Done</button></div>
+</div></div>
+<canvas id="confetti"></canvas>
+
+<script>
+__JS__
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+
+/* ---------- arena (battle strip) ---------- */
+.arena{position:relative;flex:0 0 auto;height:clamp(118px,27%,196px);overflow:hidden;border-bottom:1px solid rgba(0,0,0,.6)}
+.arena svg.scene{position:absolute;inset:0;width:100%;height:100%}
+.arena .hero-sp{position:absolute;left:7%;bottom:6px;height:78%;aspect-ratio:16/24;z-index:2}
+.arena .hero-sp svg{width:100%;height:100%}
+.arena .orb{position:absolute;z-index:3;width:10px;height:10px;background:var(--orb,#5ec3e8);box-shadow:0 0 12px 3px var(--orb,#5ec3e8);animation:orb 1.6s ease-in-out infinite;transition:background-color .2s,box-shadow .2s}
+@keyframes orb{50%{transform:translateY(-6px)}}
+.arena .mon{position:absolute;right:9%;bottom:6px;height:62%;aspect-ratio:1;z-index:2}
+.arena .mon.boss{height:84%;right:6%}
+.arena .mon .body{width:100%;height:100%}
+.arena .mon svg{width:100%;height:100%;animation:monIdle 1.4s steps(2) infinite}
+@keyframes monIdle{50%{transform:translateY(-3px) scaleY(1.03)}}
+.arena .mon.hurt .body{animation:hurt .28s steps(3)}
+@keyframes hurt{0%,60%{filter:brightness(5)}30%{transform:translateX(8px)}100%{transform:none}}
+.arena .mon.lunge{animation:lunge .4s var(--ease-out)}
+@keyframes lunge{40%{transform:translateX(-45%) scale(1.1)}}
+.arena .mon.dead .body{animation:die .8s steps(8) forwards}
+@keyframes die{to{opacity:0;transform:translateY(18px) scale(.5) rotate(-10deg);filter:brightness(4)}}
+.arena .hero-sp.recoil{animation:recoil .35s}
+@keyframes recoil{25%{transform:translateX(-10px);opacity:.35}50%{opacity:1}75%{opacity:.4}}
+.arena .hero-sp.throw{animation:throw .2s var(--ease-out)}
+@keyframes throw{50%{transform:translateX(6px) translateY(-3px)}}
+.arena .flash{position:absolute;inset:0;background:var(--rift);opacity:0;pointer-events:none;z-index:4}
+.arena .flash.on{animation:flash .4s}
+@keyframes flash{20%{opacity:.35}}
+.mon-tag{position:absolute;right:12px;top:10px;z-index:4;display:flex;flex-direction:column;align-items:flex-end;gap:5px;max-width:58%}
+.mon-tag .nm{font-family:var(--px);font-size:15px;color:#f4efd8;text-shadow:2px 2px 0 #000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.mon-tag .nm.boss{color:#ffb3a8}
+.hp{width:min(220px,38vw);height:12px;background:#0b0b0e;border:2px solid #000;box-shadow:0 0 0 1px rgba(255,255,255,.18)}
+.hp i{display:block;height:100%;width:100%;background:linear-gradient(#ff7a6e 0 45%,#d8433a 45%);transition:width .35s var(--ease-out)}
+.taunt{position:absolute;right:calc(9% + 18%);bottom:58%;z-index:5;background:#f4efd8;color:#15141a;font-family:var(--px);font-size:13px;line-height:1.3;padding:5px 8px;border-radius:6px;opacity:0;transform:scale(.8);transform-origin:right bottom;transition:opacity .2s,transform .25s var(--pop);max-width:42%;pointer-events:none}
+.taunt.show{opacity:1;transform:none}
+.dmg{position:absolute;z-index:6;font-family:var(--px);font-size:22px;color:#fff;text-shadow:2px 2px 0 #000;pointer-events:none;animation:dmg .8s var(--ease-out) forwards;white-space:nowrap}
+.dmg.crit{color:#ffe45c;font-size:28px}
+@keyframes dmg{0%{opacity:0;transform:translateY(6px) scale(.6)}15%{opacity:1;transform:translateY(-6px) scale(1.15)}100%{opacity:0;transform:translateY(-34px)}}
+.shot{position:absolute;z-index:5;width:12px;height:12px;pointer-events:none}
+.boom{position:absolute;z-index:6;width:6px;height:6px;pointer-events:none}
+.ko{position:absolute;inset:0;z-index:7;display:grid;place-items:center;font-family:var(--px);font-size:clamp(28px,5vw,50px);color:#ffe45c;text-shadow:3px 3px 0 #b3241c;opacity:0;pointer-events:none}
+.ko.show{animation:ko 1.2s var(--pop) forwards}
+@keyframes ko{0%{opacity:0;transform:scale(2)}25%{opacity:1;transform:scale(1)}80%{opacity:1}100%{opacity:0}}
+
+/* map nodes show the monster */
+.lvl .node svg.sprite{width:44px;height:44px}
+.lvl.locked .node svg.sprite{filter:brightness(0) opacity(.55)}
+.lvl.done .node svg.sprite{filter:grayscale(.85) brightness(.7)}
+.lvl .code{font-family:var(--px);font-size:12px;color:var(--faint);line-height:1}
+.world-card .art .boss-sp{position:absolute;bottom:8px;left:5%;width:88px;height:88px;filter:drop-shadow(0 0 10px rgba(255,59,47,.5))}
+.world-card .art .boss-sp svg{width:100%;height:100%;animation:monIdle 1.4s steps(2) infinite}
+.world-card.locked .art .boss-sp{filter:brightness(0)}
+
+/* home hero cast */
+.hero-lei{position:absolute;left:46%;bottom:6%;height:min(27vh,200px);aspect-ratio:16/24;z-index:2}
+.hero-lei svg{width:100%;height:100%}
+.hero-lei .orb{position:absolute;right:-16%;top:60%;width:11%;aspect-ratio:1;background:#5ec3e8;box-shadow:0 0 16px 4px #5ec3e8;animation:orb 1.6s ease-in-out infinite}
+.hero-mons{position:absolute;right:4vw;bottom:6%;display:flex;gap:1.6vw;align-items:flex-end;z-index:2}
+.hero-mons div{width:min(9vw,84px);aspect-ratio:1}
+.hero-mons div:nth-child(2){width:min(13vw,120px)}
+.hero-mons div svg{width:100%;height:100%;animation:monIdle 1.6s steps(2) infinite}
+
+/* results */
+.result .art .who{left:28%;width:64px;height:96px;margin-left:-32px}
+.result .art .mon-dead{position:absolute;right:18%;bottom:4px;width:72px;height:72px;filter:grayscale(1) brightness(.55);transform:rotate(90deg)}
+.result .art .mon-dead svg{width:100%;height:100%}
+
+/* monster files */
+.files .fcard .pic .who{width:90px;height:90px;margin-left:-45px}
+.files .fcard .pic{height:120px}
+.files .fcard .stamp{font-family:var(--px);font-size:13px;color:#ff8a80}
+@media (max-width:860px),(max-aspect-ratio:1/1){ .arena{height:clamp(110px,22vh,170px)} }
+@media (max-width:700px){ .hero-lei{left:max(6vw,20px)} }
+@media (max-width:520px){ .hero-mons div{width:15vw} .hero-mons div:nth-child(2){width:20vw} .hero-mons div:nth-child(3){display:none} .taunt{max-width:52%} }
