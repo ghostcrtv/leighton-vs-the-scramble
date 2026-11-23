@@ -12,7 +12,7 @@ const KEY='twistwood.v1';
 let S={ levels:{}, xp:0, streak:{n:0,last:''}, skills:{}, sound:true, times:[], solved:false, openAll:false };
 try{ const raw=localStorage.getItem(KEY); if(raw) S=Object.assign(S, JSON.parse(raw)); }catch(e){}
 const save=()=>{ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} };
-Sound.on=S.sound;
+S.music=S.music!==false; Sound.on=S.sound; Sound.music=S.music;
 const unlocked=i=> S.openAll || i===0 || !!S.levels[LEVELS[i-1].id];
 const rankOf=xp=>{ let r=RANKS[0][1]; for(const [n,name] of RANKS) if(xp>=n) r=name; return r; };
 const starTotal=()=>Object.values(S.levels).reduce((a,l)=>a+(l.stars||0),0);
@@ -24,7 +24,7 @@ const downCount=()=>LEVELS.filter(l=>S.levels[l.id]).length;
 
 // ---------- screens ----------
 let current='home';
-function show(id){ $$('.screen').forEach(s=>s.classList.toggle('on', s.id===id)); current=id; if(id==='home') renderHome(); if(id==='map') renderMap(); if(id==='friends') renderFriends(); if(id==='timer') renderTimer(); }
+function show(id){ $$('.screen').forEach(s=>s.classList.toggle('on', s.id===id)); current=id; if(['home','map','friends'].includes(id)) Sound.bed('menu'); if(id==='timer') Sound.bed('story'); if(id==='home') renderHome(); if(id==='map') renderMap(); if(id==='friends') renderFriends(); if(id==='timer') renderTimer(); }
 document.addEventListener('pointerdown',()=>Sound.init(),{once:true});
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-go]'); if(b){ Sound.tap(); show(b.dataset.go); } });
 
@@ -83,12 +83,13 @@ function renderFriends(){
 // ---------- settings ----------
 function openSettings(){
   const m=$('#settings'); m.classList.add('on');
-  const paint=()=>{ $('#swSound').classList.toggle('on',S.sound); $('#swOpen').classList.toggle('on',S.openAll); };
+  const paint=()=>{ $('#swSound').classList.toggle('on',S.sound); $('#swMusic').classList.toggle('on',S.music); $('#swOpen').classList.toggle('on',S.openAll); };
   paint();
-  $('#swSoundRow').onclick=()=>{ S.sound=!S.sound; Sound.on=S.sound; save(); paint(); Sound.tap(); };
+  $('#swSoundRow').onclick=()=>{ S.sound=!S.sound; Sound.setOn(S.sound); save(); paint(); Sound.tap(); };
+  $('#swMusicRow').onclick=()=>{ S.music=!S.music; Sound.setMusic(S.music); save(); paint(); };
   $('#swOpenRow').onclick=()=>{ S.openAll=!S.openAll; save(); paint(); };
   let armed=false; const rb=$('#resetBtn'); rb.textContent='Reset all progress';
-  rb.onclick=()=>{ if(!armed){ armed=true; rb.textContent='Tap again to erase everything'; return; } S={ levels:{}, xp:0, streak:{n:0,last:''}, skills:{}, sound:S.sound, times:[], solved:false, openAll:false }; save(); m.classList.remove('on'); renderHome(); };
+  rb.onclick=()=>{ if(!armed){ armed=true; rb.textContent='Tap again to erase everything'; return; } S={ levels:{}, xp:0, streak:{n:0,last:''}, skills:{}, sound:S.sound, music:S.music, times:[], solved:false, openAll:false }; save(); m.classList.remove('on'); renderHome(); };
   $('#closeSettings').onclick=()=>{ m.classList.remove('on'); if(current==='home') renderHome(); };
 }
 
@@ -146,7 +147,7 @@ const Arena={
     $('#arenaOrb').style.setProperty('--orb',col);
     const a=ar.getBoundingClientRect(), o=$('#arenaOrb').getBoundingClientRect(), m=$('#arenaMon').getBoundingClientRect();
     const sx=o.left-a.left, sy=o.top-a.top, tx=m.left-a.left+m.width*.4, ty=m.top-a.top+m.height*.45;
-    const h=$('#arenaHero'); h.classList.remove('throw'); void h.offsetWidth; h.classList.add('throw');
+    const h=$('#arenaHero'); h.classList.remove('throw'); void h.offsetWidth; h.classList.add('throw'); Sound.shoot();
     const shot=document.createElement('div'); shot.className='shot'; shot.style.cssText=`left:${sx}px;top:${sy}px;background:${col};box-shadow:0 0 10px 3px ${col}`; ar.appendChild(shot);
     const an=shot.animate([{transform:'translate(0,0) rotate(0deg)'},{transform:`translate(${(tx-sx)/2}px,${(ty-sy)/2-24}px) rotate(180deg)`},{transform:`translate(${tx-sx}px,${ty-sy}px) rotate(360deg)`}],{duration:window.__reduced?1:240,easing:'linear'});
     an.onfinish=()=>{ shot.remove(); this.impact(ar,tx,ty,col,combo); };
@@ -217,6 +218,7 @@ class Lesson{
     $('#lsCombo').innerHTML='';
     this.setCube('', 'all'); L.view.resetView();
     Arena.setup(this.mon, this.level? this.level.world.scene : 'street');
+    Sound.bed(this.warm?'match':(this.level&&this.level.boss?'code':'trivia'));
     try{
       for(this.i=0;this.i<this.steps.length;this.i++){
         this.bar(); const st=this.steps[this.i]; const m0=this.m, h0=this.h;
@@ -464,6 +466,7 @@ function showDone(r){
   const svgs=$$('#doneCard .big-stars svg');
   svgs.forEach((s,i)=>setTimeout(()=>{ s.classList.add('in'); if(i<r.stars) Sound.star(i); }, 350+i*260));
   let x=0; const step=Math.max(1,Math.ceil(r.gain/30)); const iv=setInterval(()=>{ x=Math.min(r.gain,x+step); const el=$('#dXP'); if(el) el.textContent='+'+x; if(x>=r.gain) clearInterval(iv); },30);
+  Sound.sting(big||(r.level&&r.level.id==='9.3')?'story':'win');
   if(r.stars===3||big||(r.level&&r.level.boss)) confetti(big?260:120);
   $('#dNext')&&($('#dNext').onclick=()=>{ Sound.tap(); startLevel(r.level.index+1); });
   $('#dAgain').onclick=()=>{ Sound.tap(); r.level? startLevel(r.level.index) : startWarmup(); };
