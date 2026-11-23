@@ -3,7 +3,7 @@ from PIL import Image, ImageDraw
 src='src/'
 css=open(src+'style.css').read()+open(src+'arena.css').read()
 font=base64.b64encode(open('assets/DepartureMono-Regular.woff2','rb').read()).decode()
-css=css.replace('__DM_FONT__',font)
+css=css.replace('__DM_FONT__',font).replace('__PS_FONT__',base64.b64encode(open('assets/PressStart2P.woff2','rb').read()).decode())
 js='\n'.join(open(src+f).read() for f in ['../cube.js','render.js','art.js','audio.js','content.js','app.js'])
 # app icon: pixel cube on sky with grass
 S=180; im=Image.new('RGB',(S,S),'#0b1029'); d=ImageDraw.Draw(im)

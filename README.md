@@ -7,4 +7,4 @@ Made by Steve R. for Leighton R.
 - Play: open `index.html` (or the GitHub Pages link), then Share > Add to Home Screen on iPad.
 - `index.html` is the whole game in one file. The `src/` folder holds the source; `python3 build.py` rebuilds it.
 - Music and sound effects in `audio/` are licensed tracks supplied by the owner (same set as Hawkins After Dark); not for reuse.
-- Font: Departure Mono by Helena Zhang and Tobias Fried (license in `assets/`).
+- Fonts: Departure Mono by Helena Zhang and Tobias Fried, and Press Start 2P by CodeMan38 (licenses in `assets/`).

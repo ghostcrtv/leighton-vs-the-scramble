@@ -5,6 +5,7 @@ PICTURE: the 3D cube under a pixel battle strip (Leighton vs. that level's monst
 COLOUR and TYPE: the reference's tactile machined panels flipped to night ink; color only in scenes, stickers and rift red. Inter for words, Departure Mono for numbers and the logo.
 LAYOUT: iPad first. Lesson = cube stage + side panel; stacks on phones. Tactile 8px keys.
 */
+@font-face{font-family:"Press Start 2P";src:url(data:font/woff2;base64,__PS_FONT__) format("woff2");font-display:block}
 @font-face{font-family:"Departure Mono";src:url(data:font/woff2;base64,__DM_FONT__) format("woff2");font-display:swap}
 :root{
   color-scheme:light;
@@ -51,10 +52,16 @@ svg.pix{shape-rendering:crispEdges;image-rendering:pixelated;display:block}
 .cloud-band{position:absolute;left:48%;right:0;top:0;height:46%;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 18%);mask-image:linear-gradient(90deg,transparent,#000 18%)}
 .hero .clouds{position:absolute;left:0;top:0;width:200%;height:100%;animation:drift 70s linear infinite}
 @keyframes drift{to{transform:translateX(-50%)}}
-.hero-copy{position:absolute;left:max(5vw,20px);top:calc(28px + var(--sat));max-width:560px;z-index:3}
-.logo{font-family:var(--px);font-weight:400;font-size:clamp(46px,8.4vw,92px);line-height:.92;color:#f4efd8;letter-spacing:-.01em;text-shadow:4px 4px 0 #b3241c;margin:0}
-.logo small{display:block;font-family:var(--sans);font-size:clamp(16px,2vw,20px);font-weight:500;letter-spacing:.02em;color:#ffb3a8;text-shadow:none;margin-bottom:8px}
-.hero-copy p{color:rgba(255,255,255,.92);font-size:clamp(16px,2vw,19px);line-height:1.4;margin:18px 0 24px;max-width:440px;text-shadow:0 1px 0 rgba(0,0,0,.5)}
+.hero-copy{position:absolute;left:max(5vw,20px);top:calc(30px + var(--sat));max-width:620px;z-index:3}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 0% 0%,rgba(4,6,16,.82) 0%,rgba(4,6,16,.55) 38%,rgba(4,6,16,0) 68%)}
+.logo{margin:0;display:flex;flex-direction:column;align-items:flex-start;isolation:isolate;font-family:var(--px);font-weight:400;line-height:1}
+.logo .tag{display:inline-block;background:#ff3b2f;color:#120d10;font-size:clamp(14px,1.6vw,18px);letter-spacing:.14em;padding:6px 10px 5px;box-shadow:4px 4px 0 #05060c;transform:rotate(-2deg);margin:0 0 14px 4px}
+.logo .tag b{font-weight:400;color:#fff4d6}
+.logo .the{font-family:'Press Start 2P',var(--px);font-size:clamp(13px,1.6vw,18px);letter-spacing:.6em;margin-bottom:12px!important;color:#f4efd8;margin:0 0 2px 4px;text-shadow:3px 3px 0 #05060c}
+.logo .big{position:relative;display:flex;font-family:'Press Start 2P',var(--px);font-size:clamp(36px,10.5vw,78px);letter-spacing:0;line-height:1;filter:drop-shadow(3px 0 0 #05060c) drop-shadow(-3px 0 0 #05060c) drop-shadow(0 3px 0 #05060c) drop-shadow(0 -3px 0 #05060c) drop-shadow(5px 5px 0 #b3241c) drop-shadow(3px 3px 0 #05060c)}
+.logo .big span{display:inline-block;background:linear-gradient(#fffaf0 0 38%,#ffd36b 38% 64%,#ff8a3d 64% 82%,#ff5a3a 82%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:letterIn .6s var(--pop) both;animation-delay:calc(.15s + var(--i) * 55ms)}
+@keyframes letterIn{from{opacity:0;transform:translateY(-24px) scale(1.3)}}
+.hero-copy p{color:rgba(255,255,255,.94);font-size:clamp(16px,2vw,19px);line-height:1.45;margin:26px 0 24px;max-width:460px;text-shadow:0 1px 0 rgba(0,0,0,.5)}
 .hero-copy p span{color:rgba(255,255,255,.66)}
 .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
 .crew{position:absolute;left:0;right:0;bottom:6%;height:90px;z-index:2;pointer-events:none}
