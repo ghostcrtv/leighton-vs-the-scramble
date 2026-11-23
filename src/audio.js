@@ -64,6 +64,7 @@ const Sound = {
   ko(){ this.sample('laser',1,.7); this.thump(90,1); [392,330,262,196].forEach((f,i)=>this.tone(f,.12,'square',.045,i*.07)); },
   win(){ if(!this.sample('design',.6,1.2)) [440,523,659,880].forEach((f,i)=>this.tone(f,.14,'square',.045,i*.08)); },
   star(i){ if(!this.sample('collect',.6,1+i*.18)) this.tone(784*Math.pow(1.26,i),.14,'square',.045); },
+  type(){ this.tone(1400+Math.random()*300,.018,'square',.012); },
   beep(hi){ this.tone(hi?1046:660,.12,'square',.05); }
 };
 addEventListener('pointerdown',()=>Sound.unlock(),{passive:true});

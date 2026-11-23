@@ -379,6 +379,53 @@ svg.pix{shape-rendering:crispEdges;image-rendering:pixelated;display:block}
 @media (max-width:700px){ .hero-lei{left:max(6vw,20px)} }
 @media (max-width:520px){ .hero-mons div{width:15vw} .hero-mons div:nth-child(2){width:20vw} .hero-mons div:nth-child(3){display:none} .taunt{max-width:52%} }
 
+/* ---------- arcade buttons ---------- */
+.key{position:relative;overflow:hidden;font-family:var(--px);font-weight:400;text-transform:uppercase;letter-spacing:.08em;font-size:14px;border-radius:8px;transition:transform .12s var(--ease-out),box-shadow .12s var(--ease-out),filter .15s}
+.key.big{height:54px;font-size:15px;padding:0 22px}
+.key.dark{background:linear-gradient(#ff7a45,#e2402f 60%,#c9322a);color:#fff;border:2px solid #05060c;text-shadow:2px 2px 0 rgba(90,16,10,.6);
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.35),inset 0 -3px 0 rgba(0,0,0,.18),0 5px 0 #7a1e16,0 5px 0 2px #05060c,0 10px 18px rgba(255,59,47,.25)}
+.key.light,.key.ghost{background:linear-gradient(#2e3340,#232733);color:#f4efd8;border:2px solid #05060c;
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.1),0 5px 0 #0b0c11,0 5px 0 2px #05060c}
+.key.ghost{background:linear-gradient(rgba(30,40,70,.85),rgba(18,24,44,.85));color:#a9e6ff;box-shadow:inset 0 0 0 1px rgba(94,195,232,.45),inset 0 2px 0 rgba(255,255,255,.12),0 5px 0 #0b0c11,0 5px 0 2px #05060c}
+.key:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.key.dark:hover{box-shadow:inset 0 2px 0 rgba(255,255,255,.35),inset 0 -3px 0 rgba(0,0,0,.18),0 7px 0 #7a1e16,0 7px 0 2px #05060c,0 14px 24px rgba(255,59,47,.35)}
+.key:active{transform:translateY(4px);filter:brightness(.95)}
+.key.dark:active{box-shadow:inset 0 2px 0 rgba(255,255,255,.3),0 1px 0 #7a1e16,0 1px 0 2px #05060c}
+.key.light:active,.key.ghost:active{box-shadow:inset 0 2px 0 rgba(255,255,255,.08),0 1px 0 #0b0c11,0 1px 0 2px #05060c}
+.key.dark::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);animation:shine 3.2s ease-in-out infinite}
+@keyframes shine{0%,70%{left:-60%}100%{left:130%}}
+#homePlay{animation:ctaPulse 2s ease-in-out infinite}
+@keyframes ctaPulse{50%{filter:brightness(1.12)}}
+.key[disabled]{opacity:.4;filter:grayscale(.6);animation:none}
+.key[disabled]::after{display:none}
+.btn-row{gap:12px;padding-bottom:6px}
+.home-links .row-btn{transition:transform .12s var(--ease-out),border-color .15s}
+.home-links .row-btn:hover{transform:translateY(-2px)}
+
+/* pad keys and answers: deeper, springier */
+.pk,.choice{border:2px solid #05060c;box-shadow:0 5px 0 #0b0c11,0 5px 0 2px #05060c,inset 0 2px 0 rgba(255,255,255,.1);transition:transform .1s var(--ease-out),box-shadow .1s,background-color .15s}
+.pk:hover,.choice:hover{transform:translateY(-2px)}
+.pk:active,.pk.press,.choice:active{transform:translateY(4px);box-shadow:0 1px 0 #0b0c11,0 1px 0 2px #05060c,inset 0 2px 0 rgba(255,255,255,.08)}
+.choice{font-family:var(--px);text-transform:uppercase;letter-spacing:.06em;font-size:15px}
+.choice.right{box-shadow:0 5px 0 #143018,0 5px 0 2px #05060c,0 0 18px rgba(108,195,90,.45)}
+.pad,.choices{padding-bottom:6px}
+
+/* ---------- dialog box ---------- */
+.speaker{position:relative}
+.bubble{background:linear-gradient(#1b1e27,#14161d);border:2px solid #05060c;border-radius:10px;padding:18px 16px 14px;font-size:17px;line-height:1.5;color:#f4efd8;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),0 4px 0 #05060c;margin-top:8px}
+.bubble::before{display:none}
+.bubble .who{position:absolute;left:12px;top:-11px;margin:0;background:#ff3b2f;color:#120d10;font-family:var(--px);font-size:11px;letter-spacing:.16em;padding:3px 8px 2px;transform:rotate(-2deg);box-shadow:3px 3px 0 #05060c}
+.bubble b{color:#ffd36b;font-weight:600}
+.bubble .chant{color:#a9e6ff}
+.bubble.pop{animation:bubblePop .32s var(--pop)}
+@keyframes bubblePop{0%{transform:translateY(6px) scale(.97);opacity:.4}100%{transform:none;opacity:1}}
+.bubble .caret{display:inline-block;width:8px;height:8px;margin-left:6px;background:#ff3b2f;clip-path:polygon(0 0,100% 0,50% 100%);animation:caret .8s steps(2) infinite;vertical-align:middle}
+@keyframes caret{50%{opacity:0}}
+.bubble.typing .caret{display:none}
+.speaker .face{border-radius:8px;background:#1b1e27;border:2px solid #05060c;box-shadow:0 4px 0 #05060c;padding:4px;margin-top:8px}
+.task{border:2px solid #05060c;background:#171920;box-shadow:inset 0 0 0 1px rgba(255,255,255,.05)}
+
 </style>
 </head>
 <body>
@@ -390,7 +437,7 @@ svg.pix{shape-rendering:crispEdges;image-rendering:pixelated;display:block}
       <div class="hero-copy">
         <h1 class="logo" aria-label="Leighton vs. The Scramble"><span class="tag" aria-hidden="true">LEIGHTON <b>VS.</b></span><span class="the" aria-hidden="true">THE</span><span class="big" aria-hidden="true" data-t="SCRAMBLE"><span style="--i:0">S</span><span style="--i:1">C</span><span style="--i:2">R</span><span style="--i:3">A</span><span style="--i:4">M</span><span style="--i:5">B</span><span style="--i:6">L</span><span style="--i:7">E</span></span></h1>
         <p>Twistwood, 1986. Someone scrambled the cube and the monsters got out. <span>Every turn you learn is a hit. Solve it to send them back.</span></p>
-        <div class="hero-actions"><button class="key light big" id="homePlay">Start learning</button><button class="key ghost big" id="homeWarm">Warm-up</button></div>
+        <div class="hero-actions"><button class="key dark big" id="homePlay">Start learning</button><button class="key ghost big" id="homeWarm">Warm-up</button></div>
       </div>
       <div class="hero-lei" id="heroLei"></div><div class="hero-mons" id="heroMons"></div>
     </div>
@@ -1043,6 +1090,7 @@ const Sound = {
   ko(){ this.sample('laser',1,.7); this.thump(90,1); [392,330,262,196].forEach((f,i)=>this.tone(f,.12,'square',.045,i*.07)); },
   win(){ if(!this.sample('design',.6,1.2)) [440,523,659,880].forEach((f,i)=>this.tone(f,.14,'square',.045,i*.08)); },
   star(i){ if(!this.sample('collect',.6,1+i*.18)) this.tone(784*Math.pow(1.26,i),.14,'square',.045); },
+  type(){ this.tone(1400+Math.random()*300,.018,'square',.012); },
   beep(hi){ this.tone(hi?1046:660,.12,'square',.05); }
 };
 addEventListener('pointerdown',()=>Sound.unlock(),{passive:true});
@@ -1492,6 +1540,25 @@ function crossHint(c,pad){
   return null;
 }
 
+// typewriter for the dialog box; tap the box to finish instantly
+let typeTimer=null;
+function typeOut(b){
+  clearInterval(typeTimer);
+  const txt=b.querySelector('.txt'); if(!txt) return;
+  const nodes=[]; const walk=n=>{ for(const c of n.childNodes){ if(c.nodeType===3){ nodes.push([c,c.textContent]); c.textContent=''; } else walk(c); } }; walk(txt);
+  if(window.__reduced){ nodes.forEach(([n,t])=>n.textContent=t); return; }
+  b.classList.add('typing'); let ni=0, ci=0, k=0;
+  const finish=()=>{ clearInterval(typeTimer); nodes.forEach(([n,t])=>n.textContent=t); b.classList.remove('typing'); b.onclick=null; };
+  b.onclick=finish;
+  typeTimer=setInterval(()=>{
+    for(let step=0;step<2;step++){
+      if(ni>=nodes.length){ finish(); return; }
+      const [n,t]=nodes[ni]; ci++; n.textContent=t.slice(0,ci); if(ci>=t.length){ ni++; ci=0; }
+    }
+    if((k++)%2===0) Sound.type();
+  },16);
+}
+
 // ---------- the battle strip ----------
 const COLOR_OF={R:'O',L:'R',U:'Y',D:'W',F:'G',B:'B'};
 const Arena={
@@ -1556,7 +1623,9 @@ class Lesson{
   kill(){ this.dead=true; L.view.stop(); this.cancel&&this.cancel(); document.onkeydown=null; }
   say(who, html){
     $('#lsFace').innerHTML=spriteSVG('face'); const f=$('#lsFace'); f.classList.remove('talk'); void f.offsetWidth; f.classList.add('talk');
-    $('#lsBubble').innerHTML=`<span class="who">Leighton</span>${html}`; }
+    const b=$('#lsBubble'); b.innerHTML=`<span class="who">Leighton</span><span class="txt">${html}</span><span class="caret"></span>`;
+    b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop');
+    typeOut(b); }
   toast(txt,bad){ const t=$('#lsToast'); t.textContent=txt; t.className='toast'+(bad?' bad':''); void t.offsetWidth; t.classList.add('show'); }
   yay(){ this.toast(pick(HERO.yay)); }
   oops(){ this.toast(pick(HERO.oops),true); }

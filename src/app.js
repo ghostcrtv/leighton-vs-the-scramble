@@ -124,6 +124,25 @@ function crossHint(c,pad){
   return null;
 }
 
+// typewriter for the dialog box; tap the box to finish instantly
+let typeTimer=null;
+function typeOut(b){
+  clearInterval(typeTimer);
+  const txt=b.querySelector('.txt'); if(!txt) return;
+  const nodes=[]; const walk=n=>{ for(const c of n.childNodes){ if(c.nodeType===3){ nodes.push([c,c.textContent]); c.textContent=''; } else walk(c); } }; walk(txt);
+  if(window.__reduced){ nodes.forEach(([n,t])=>n.textContent=t); return; }
+  b.classList.add('typing'); let ni=0, ci=0, k=0;
+  const finish=()=>{ clearInterval(typeTimer); nodes.forEach(([n,t])=>n.textContent=t); b.classList.remove('typing'); b.onclick=null; };
+  b.onclick=finish;
+  typeTimer=setInterval(()=>{
+    for(let step=0;step<2;step++){
+      if(ni>=nodes.length){ finish(); return; }
+      const [n,t]=nodes[ni]; ci++; n.textContent=t.slice(0,ci); if(ci>=t.length){ ni++; ci=0; }
+    }
+    if((k++)%2===0) Sound.type();
+  },16);
+}
+
 // ---------- the battle strip ----------
 const COLOR_OF={R:'O',L:'R',U:'Y',D:'W',F:'G',B:'B'};
 const Arena={
@@ -188,7 +207,9 @@ class Lesson{
   kill(){ this.dead=true; L.view.stop(); this.cancel&&this.cancel(); document.onkeydown=null; }
   say(who, html){
     $('#lsFace').innerHTML=spriteSVG('face'); const f=$('#lsFace'); f.classList.remove('talk'); void f.offsetWidth; f.classList.add('talk');
-    $('#lsBubble').innerHTML=`<span class="who">Leighton</span>${html}`; }
+    const b=$('#lsBubble'); b.innerHTML=`<span class="who">Leighton</span><span class="txt">${html}</span><span class="caret"></span>`;
+    b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop');
+    typeOut(b); }
   toast(txt,bad){ const t=$('#lsToast'); t.textContent=txt; t.className='toast'+(bad?' bad':''); void t.offsetWidth; t.classList.add('show'); }
   yay(){ this.toast(pick(HERO.yay)); }
   oops(){ this.toast(pick(HERO.oops),true); }
